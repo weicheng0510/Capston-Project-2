@@ -1,4 +1,4 @@
-const Domain = 'http://localhost:5001';
+const Domain = import.meta.env.VITE_CLOUD_NAME || 'http://localhost:5001';
 
 
 const Api = {
