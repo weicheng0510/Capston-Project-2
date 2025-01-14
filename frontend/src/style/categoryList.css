@@ -1,0 +1,6 @@
+.backgroundImage {
+    background-image: url('../assest/car-background.avif');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
