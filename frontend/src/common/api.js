@@ -1,5 +1,4 @@
-const Domain = import.meta.env.BACKEND_URL || 'http://localhost:5001';
-
+const Domain = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5001';
 
 const Api = {
     signUp: {
