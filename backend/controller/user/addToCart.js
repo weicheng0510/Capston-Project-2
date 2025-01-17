@@ -2,6 +2,14 @@ const Cart = require("../../models/Cart");
 
 const addToCart = async (req, res) => {
     try {
+        // Check if the user is authenticated (token exists in request)
+        if (!req.user) {
+            return res.status(401).json({
+                message: "Please log in",
+                success: false,
+            });
+        }
+
         const { productId } = req?.body;
         const currentUser = req.user._id;
 

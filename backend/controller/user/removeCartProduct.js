@@ -6,6 +6,14 @@ const removeCartProduct = async (req, res) => {
 
         const deletedCart = await Cart.findByIdAndDelete(cartId);
 
+        if (!deletedCart) {
+            // If product is not found, return a 400 error
+            return res.status(400).json({
+                message: "Product not found",
+                success: false,
+            });
+        }
+
         res.json({
             message: "Remove product successfully.",
             data: deletedCart,

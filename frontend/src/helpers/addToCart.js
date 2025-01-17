@@ -9,26 +9,35 @@ const addToCart = async (e, id, token) => {
         return;
     }
 
-    const res = await fetch(Api.addToCart.url, {
-        method: Api.addToCart.method,
-        credentials: 'include',
-        headers: {
-            'Authorization': `Bearer ${token}`,
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            productId: id
+    try {
+        const res = await fetch(Api.addToCart.url, {
+            method: Api.addToCart.method,
+            credentials: 'include',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                productId: id
+            })
         })
-    })
 
-    const resData = await res.json();
+        if (!res.ok) {
+            throw new Error(`Error: ${res.status} ${res.statusText}`);
+        }
 
-    if (resData.success) {
-        toast.success(resData.message);
-    } else {
-        toast.error(resData.message);
+        const resData = await res.json();
+
+        if (resData.success) {
+            toast.success(resData.message);
+        } else {
+            toast.error(resData.message);
+        }
+    } catch (error) {
+        // Handles network errors or any unexpected issues
+        console.error('Failed to add to cart:', error);
+        toast.error('Something went wrong. Please try again.');
     }
-
 }
 
 export default addToCart;

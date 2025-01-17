@@ -3,6 +3,7 @@ import Api from '../common/api';
 import UserContext from '../contect/useContect';
 import { AiOutlineCloseSquare } from "react-icons/ai";
 import { Link } from 'react-router';
+import { toast } from 'react-toastify';
 
 const Cart = () => {
     const { token, cartCount, fetchCart } = useContext(UserContext);
@@ -101,6 +102,10 @@ const Cart = () => {
         await fetchData();
     }
 
+    const handlePaymentClick = () => {
+        toast.info('Coming Soon!');
+    };
+
     useEffect(() => {
         setLoading(true);
         handleLoading();
@@ -180,7 +185,7 @@ const Cart = () => {
                                             <p>${totalPrice}</p>
                                         </div>
 
-                                        <button className='bg-gray-500 text-white w-full p-1 mt-2 font-medium text-lg hover:bg-gray-600'>Payment</button>
+                                        <button className='bg-gray-500 text-white w-full p-1 mt-2 font-medium text-lg hover:bg-gray-600' onClick={handlePaymentClick}>Payment</button>
                                     </div>
                                 )
                             }

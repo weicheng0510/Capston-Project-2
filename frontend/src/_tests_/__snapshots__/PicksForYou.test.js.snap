@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PicksForYou Component handles fetch errors gracefully 1`] = `
+<DocumentFragment>
+  <div
+    class="text-center"
+  >
+    Loading...
+  </div>
+</DocumentFragment>
+`;

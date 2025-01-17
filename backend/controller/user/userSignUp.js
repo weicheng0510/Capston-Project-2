@@ -16,8 +16,50 @@ async function userSignUp(req, res) {
             throw new Error('Please provide username');
         }
 
-        const salt = bcrypt.genSaltSync(10);
-        const hash = await bcrypt.hashSync(password, salt);
+        // Email validation using regex
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            throw new Error("Invalid email format");
+        }
+
+        // Password validation
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        if (!passwordRegex.test(password)) {
+            throw new Error(
+                "Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character"
+            );
+        }
+
+        // Username validation
+        const usernameRegex = /^[a-zA-Z0-9_]{3,30}$/;
+        if (!usernameRegex.test(username)) {
+            throw new Error(
+                "Username must be 3-30 characters long and contain only letters, numbers, and underscores"
+            );
+        }
+
+        // Check if the email or username already exists
+        const existingUser = await User.findOne({ $or: [{ email }, { username }] });
+
+        if (existingUser) {
+            if (existingUser.email === email) {
+                return res.status(400).json({
+                    message: `email '${email}' is already registered.`,
+                    success: false,
+                });
+            }
+
+            if (existingUser.username === username) {
+                return res.status(400).json({
+                    message: `username '${username}' is already registered.`,
+                    success: false,
+                });
+            }
+        }
+
+        // Generate salt and hash password
+        const salt = await bcrypt.genSalt(10);
+        const hash = await bcrypt.hash(password, salt);
 
         if (!hash) {
             throw new Error('Something is wrong')
@@ -39,19 +81,10 @@ async function userSignUp(req, res) {
         });
 
     } catch (err) {
-        if (err.code === 11000) {
-            const field = Object.keys(err.keyValue)[0];
-            const value = err.keyValue[field];
-            res.status(400).json({
-                message: `${field} '${value}' is already registered.`,
-                success: false
-            })
-        } else {
-            res.status(400).json({
-                message: err.message || 'An error occurred',
-                success: false
-            });
-        }
+        res.status(400).json({
+            message: err.message || 'An error occurred',
+            success: false
+        });
     }
 }
 

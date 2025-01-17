@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer matches the snapshot 1`] = `
+<DocumentFragment>
+  <footer
+    class="bg-neutral-100"
+  >
+    <div
+      class="container mx-auto p-4"
+    >
+      <p
+        class="text-right"
+      >
+        Copyright © 2024 Parts Search  ALL right Reserved.
+      </p>
+    </div>
+  </footer>
+</DocumentFragment>
+`;

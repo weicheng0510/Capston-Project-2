@@ -12,6 +12,13 @@ const updateCartProductQty = async (req, res) => {
             { $set: { quantity } }
         );
 
+        if (updateProduct.nModified === 0) {
+            return res.status(400).json({
+                message: "Product not found",
+                success: false
+            });
+        }
+
         res.json({
             message: "Quantity updated successfully.",
             data: updateProduct,

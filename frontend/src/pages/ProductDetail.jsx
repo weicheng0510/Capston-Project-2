@@ -11,6 +11,7 @@ import FullImage from '../components/FullImage';
 import SimilarProduct from '../components/SimilarProduct';
 import addToCart from '../helpers/addToCart';
 import UserContext from '../contect/useContect';
+import { toast } from 'react-toastify';
 
 const ProductDetail = () => {
     const init = {
@@ -149,10 +150,19 @@ const ProductDetail = () => {
 
                     {/* Action Buttons */}
                     <div className="mt-4 flex gap-4">
-                        <Link to={'/cart'} className="bg-blue-500 text-white px-4 py-2 rounded shadow" onClick={(e) => {
-                            handleAddToCart(e, data._id, token);
-                            window.location.href = '/cart';
-                        }}>
+                        <Link
+                            to={'/cart'}
+                            className="bg-blue-500 text-white px-4 py-2 rounded shadow"
+                            onClick={(e) => {
+                                if (!token) {
+                                    e.preventDefault();
+                                    toast.error('Please log in to proceed');
+                                    return;
+                                }
+                                handleAddToCart(e, data._id, token);
+                                window.location.href = '/cart';
+                            }}
+                        >
                             Buy It Now
                         </Link>
                         <button className="bg-gray-200 px-4 py-2 rounded shadow" onClick={(e) => handleAddToCart(e, data._id, token)}>

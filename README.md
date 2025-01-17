@@ -45,6 +45,12 @@ https://parts-search.onrender.com/
 
 ---
 
+## Database Schema Diagram
+
+![Database Schema Diagram](/database_schema.png)
+
+---
+
 ## Installation Instructions
 
 ### Prerequisites

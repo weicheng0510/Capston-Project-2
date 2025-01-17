@@ -67,7 +67,7 @@ const Navbar = () => {
                         {/* user icon */}
                         {
                             user?._id && (
-                                <div className='text-xl' onClick={() => setDisplay(p => !p)}>
+                                <div id='userIcon' className='text-xl' onClick={() => setDisplay(p => !p)}>
                                     {
                                         user?.photo ? (
                                             <img src={user?.photo} className='w-10 h-10 rounded-full' alt={user?.username} />

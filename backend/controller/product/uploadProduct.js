@@ -14,7 +14,7 @@ async function uploadProductControll(req, res) {
         const saveProduct = await uploadProduct.save();
 
         res.status(201).json({
-            message: "Product upload seccesfully",
+            message: "Product upload successfully",
             success: true,
             data: saveProduct
         })

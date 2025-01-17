@@ -21,6 +21,7 @@ const CategoryList = () => {
             setCategory(resData.data);
         } catch (error) {
             console.error('Error fetching categories:', error);
+            toast.error('Failed to load categories. Please try again later.');
         } finally {
             setLoading(false);
         }
@@ -68,7 +69,7 @@ const CategoryList = () => {
                                             key={j}
                                             src={image}
                                             alt={`Category ${j}`}
-                                            className="h-60 object-fill"
+                                            className="h-60 w-60 object-contain"
                                         />
                                     ))
                                     : p.image.slice(0, 1).map((image, j) => (

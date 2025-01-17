@@ -5,6 +5,7 @@ import { Link } from 'react-router';
 const BrandList = () => {
     const [brand, setBrand] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
 
     const fetchBrand = async () => {
         setLoading(true);
@@ -13,7 +14,8 @@ const BrandList = () => {
             const resData = await res.json();
             setBrand(resData.data);
         } catch (error) {
-            console.error('Error fetching categories:', error);
+            // console.error('Error fetching categories:', error);
+            setError(true);
         } finally {
             setLoading(false);
         }
@@ -26,6 +28,8 @@ const BrandList = () => {
     if (loading) {
         return <div className="text-center">Loading...</div>;
     }
+
+    if (error) return <p className="text-center">Error loading brands</p>;
 
     return (
         <div className='container mt-6 mx-auto p-4 pt-2 flex justify-around text-xl font-bold bg-neutral-100 flex-wrap'>
